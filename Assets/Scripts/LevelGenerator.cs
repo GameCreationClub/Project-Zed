@@ -34,7 +34,7 @@ public class LevelGenerator : MonoBehaviour
         GameObject prefab = GetPrefabFromColor(pixelColor);
 
         if (prefab == null)
-            Debug.LogWarning($"Color {pixelColor} does not map to any object");
+            Debug.LogWarning($"Color {pixelColor} at {x}, {y} does not map to any object");
         else
             Instantiate(prefab, new Vector2(x * tileSize.x, (y * tileSize.y)), Quaternion.identity);
     }
