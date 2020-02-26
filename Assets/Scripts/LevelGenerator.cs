@@ -9,12 +9,7 @@ public class LevelGenerator : MonoBehaviour
 
     public Vector2 tileSize;
 
-    private void Start()
-    {
-        GenerateLevel();
-    }
-
-    private void GenerateLevel()
+    public void GenerateLevel()
     {
         for (int x = 0; x < map.width; x++)
         {
@@ -36,7 +31,7 @@ public class LevelGenerator : MonoBehaviour
         if (prefab == null)
             Debug.LogWarning($"Color {pixelColor} at {x}, {y} does not map to any object");
         else
-            Instantiate(prefab, new Vector2(x * tileSize.x, (y * tileSize.y)), Quaternion.identity);
+            Instantiate(prefab, new Vector2(x * tileSize.x, (y * tileSize.y)), Quaternion.identity).transform.parent = transform;
     }
 
     private GameObject GetPrefabFromColor(Color color)
