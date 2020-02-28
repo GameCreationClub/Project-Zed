@@ -11,6 +11,11 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateLevel()
     {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+
         for (int x = 0; x < map.width; x++)
         {
             for (int y = 0; y < map.height; y++)
