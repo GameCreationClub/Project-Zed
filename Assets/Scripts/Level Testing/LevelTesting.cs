@@ -6,6 +6,8 @@ using Crosstales.FB;
 
 public class LevelTesting : MonoBehaviour
 {
+    public GameObject objectList;
+
     private LevelGenerator levelGenerator;
 
     private void Start()
@@ -22,5 +24,10 @@ public class LevelTesting : MonoBehaviour
 
         levelGenerator.map = map;
         levelGenerator.GenerateLevel();
+    }
+
+    public void ToggleObjectList(bool toggle)
+    {
+        objectList.SetActive(toggle);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     public Texture2D map;
-    public ColorToPrefab[] colorMaps;
+    public ColorMap[] colorMaps;
 
     public Vector2 tileSize;
 
@@ -41,7 +41,7 @@ public class LevelGenerator : MonoBehaviour
 
     private GameObject GetPrefabFromColor(Color color)
     {
-        foreach (ColorToPrefab colorMap in colorMaps)
+        foreach (ColorMap colorMap in colorMaps)
         {
             if (colorMap.color.Equals(color))
                 return colorMap.prefab;
@@ -52,7 +52,7 @@ public class LevelGenerator : MonoBehaviour
 }
 
 [System.Serializable]
-public class ColorToPrefab
+public class ColorMap
 {
     public Color color = Color.black;
     public GameObject prefab;
