@@ -23,6 +23,9 @@ public class LevelGenerator : MonoBehaviour
                 GenerateTile(x, y);
             }
         }
+
+        transform.position -= new Vector3(map.width / 2f * tileSize.x, map.height / 2f * tileSize.y, 0f);
+        Camera.main.orthographicSize = (7f * map.height + 4f) / 12f;
     }
 
     private void GenerateTile(int x, int y)
