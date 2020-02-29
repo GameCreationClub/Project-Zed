@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private float movement;
     private bool onGround = true;
 
-    private RaycastHit2D hit2D;
+    private RaycastHit2D raycastHitLeft, raycastHitRight;
 
     private Rigidbody2D rb;
 
@@ -31,11 +31,12 @@ public class Player : MonoBehaviour
             }
         }
 
-        hit2D = Physics2D.Raycast((Vector2)transform.position + Vector2.down * 0.51f, Vector2.down, 0.6f);
+        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.6f);
+        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.6f);
 
         try
         {
-            onGround = hit2D.collider.CompareTag("Ground");
+            onGround = raycastHitRight.collider.CompareTag("Ground") || raycastHitLeft.collider.CompareTag("Ground");
         }
         catch
         {
