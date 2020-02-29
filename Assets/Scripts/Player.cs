@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     private float movement;
     private bool onGround = true;
 
+    private RaycastHit2D hit2D;
+
     private Rigidbody2D rb;
 
     private void Start()
@@ -19,8 +21,8 @@ public class Player : MonoBehaviour
     private void Update()
     {
         movement = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
-        //transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
+        //rb.velocity = new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
+        transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -29,9 +31,20 @@ public class Player : MonoBehaviour
                 rb.AddForce(Vector2.up * jumpForce);
             }
         }
+
+        hit2D = Physics2D.Raycast((Vector2)transform.position + Vector2.down * 0.51f, Vector2.down, 0.6f);
+
+        try
+        {
+            onGround = hit2D.collider.CompareTag("Ground");
+        }
+        catch
+        {
+            onGround = false;
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    /*private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Ground"))
         {
@@ -45,5 +58,5 @@ public class Player : MonoBehaviour
         {
             onGround = false;
         }
-    }
+    }*/
 }
