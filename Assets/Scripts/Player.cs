@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         //rb.velocity = new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
         transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
         {
             if (onGround)
             {
@@ -43,20 +43,4 @@ public class Player : MonoBehaviour
             onGround = false;
         }
     }
-
-    /*private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            onGround = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("Ground"))
-        {
-            onGround = false;
-        }
-    }*/
 }
