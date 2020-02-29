@@ -17,13 +17,21 @@ public class LevelTesting : MonoBehaviour
 
     public void OpenFile()
     {
-        string path = FileBrowser.OpenSingleFile();
+        string path;
+        try
+        {
+            path = FileBrowser.OpenSingleFile();
 
-        Texture2D map = new Texture2D(1, 1, TextureFormat.ARGB32, false);
-        map.LoadImage(File.ReadAllBytes(path));
+            Texture2D map = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+            map.LoadImage(File.ReadAllBytes(path));
 
-        levelGenerator.map = map;
-        levelGenerator.GenerateLevel();
+            levelGenerator.map = map;
+            levelGenerator.GenerateLevel();
+        }
+        catch
+        {
+            Debug.LogError("Couldn't open file");
+        }
     }
 
     public void ToggleObjectList(bool toggle)

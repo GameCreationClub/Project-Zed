@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     private void Update()
     {
         movement = Input.GetAxisRaw("Horizontal");
-        //rb.velocity = new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
         transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
