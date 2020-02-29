@@ -20,6 +20,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        #region Ground Detection
+        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.6f);
+        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.6f);
+        onGround = (raycastHitRight.collider != null || raycastHitLeft.collider != null);
+
+        #endregion
+
         #region Movement
         movement = Input.GetAxisRaw("Horizontal");
         transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
@@ -32,20 +39,6 @@ public class Player : MonoBehaviour
             {
                 rb.AddForce(Vector2.up * jumpForce);
             }
-        }
-        #endregion
-
-        #region Ground Detection
-        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.6f);
-        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.6f);
-
-        try
-        {
-            onGround = raycastHitRight.collider.CompareTag("Ground") || raycastHitLeft.collider.CompareTag("Ground");
-        }
-        catch
-        {
-            onGround = false;
         }
         #endregion
     }
