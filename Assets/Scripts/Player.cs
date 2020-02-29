@@ -20,9 +20,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        #region Movement
         movement = Input.GetAxisRaw("Horizontal");
         transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
+        #endregion
 
+        #region Jumping
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
         {
             if (onGround)
@@ -30,7 +33,9 @@ public class Player : MonoBehaviour
                 rb.AddForce(Vector2.up * jumpForce);
             }
         }
+        #endregion
 
+        #region Ground Detection
         raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.6f);
         raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.6f);
 
@@ -42,5 +47,6 @@ public class Player : MonoBehaviour
         {
             onGround = false;
         }
+        #endregion
     }
 }
