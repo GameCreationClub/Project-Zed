@@ -28,12 +28,12 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Movement
-        movement = Input.GetAxisRaw("Horizontal");
+        movement = Input.GetAxis("Horizontal");
         transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
         #endregion
 
         #region Jumping
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump"))
         {
             if (onGround)
             {
