@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f, jumpForce = 390f;
+    public float acceleration = 0.05f, deceleration = 0.05f;
 
     private float movement;
     private bool onGround = true;
@@ -28,8 +29,22 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Movement
-        movement = Input.GetAxis("Horizontal");
+        movement += Input.GetAxisRaw("Horizontal") * acceleration;
+
+        if (movement > 1f)
+            movement = 1f;
+        else if (movement < -1f)
+            movement = -1f;
+
         transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
+
+        if (Input.GetAxisRaw("Horizontal") == 0f)
+        {
+            if (movement > 0.025f)
+                movement -= deceleration;
+            else if (movement < -0.025f)
+                movement += deceleration;
+        }
         #endregion
 
         #region Jumping
