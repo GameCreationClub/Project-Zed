@@ -22,8 +22,8 @@ public class Player : MonoBehaviour
     private void Update()
     {
         #region Ground Detection
-        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.6f);
-        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.6f);
+        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.1f);
+        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.1f);
         onGround = (raycastHitRight.collider != null || raycastHitLeft.collider != null);
 
         #endregion
