@@ -146,4 +146,4 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 585
   acceleration: 0.2
-  deceleration: 0.3
+  deceleration: 0.125

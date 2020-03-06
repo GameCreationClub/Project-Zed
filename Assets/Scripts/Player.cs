@@ -40,10 +40,13 @@ public class Player : MonoBehaviour
 
         if (Input.GetAxisRaw("Horizontal") == 0f)
         {
-            if (movement > 0.025f)
+            if (movement > deceleration / 2f)
                 movement -= deceleration;
-            else if (movement < -0.025f)
+            else if (movement < -deceleration / 2f)
                 movement += deceleration;
+
+            if (Mathf.Abs(movement) <= deceleration && Mathf.Abs(movement) > 0f)
+                movement = 0f;
         }
         #endregion
 
