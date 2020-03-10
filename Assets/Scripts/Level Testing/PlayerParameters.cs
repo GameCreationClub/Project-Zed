@@ -1,0 +1,60 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerParameters : MonoBehaviour
+{
+    public InputField moveSpeed, jumpForce, acceleration, deceleration;
+
+    private Player player;
+
+    public void GetPlayer()
+    {
+        player = FindObjectOfType<Player>();
+
+        moveSpeed.text = player.moveSpeed.ToString();
+        jumpForce.text = player.jumpForce.ToString();
+        acceleration.text = player.acceleration.ToString();
+        deceleration.text = player.deceleration.ToString();
+    }
+
+    public void ApplySettings()
+    {
+        try
+        {
+            player.moveSpeed = float.Parse(moveSpeed.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+
+        try
+        {
+            player.jumpForce = float.Parse(jumpForce.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+
+        try
+        {
+            player.acceleration = float.Parse(acceleration.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+
+        try
+        {
+            player.deceleration = float.Parse(deceleration.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+    }
+}

@@ -27,6 +27,8 @@ public class LevelTesting : MonoBehaviour
 
             levelGenerator.map = map;
             levelGenerator.GenerateLevel();
+
+            FindObjectOfType<PlayerParameters>().GetPlayer();
         }
         catch
         {
