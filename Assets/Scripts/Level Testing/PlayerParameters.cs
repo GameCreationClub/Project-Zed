@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerParameters : MonoBehaviour
 {
-    public InputField moveSpeed, jumpForce, acceleration, deceleration;
+    public InputField moveSpeed, jumpForce, acceleration, deceleration, dashDuration, dashSpeed;
 
     private Player player;
 
@@ -17,6 +17,8 @@ public class PlayerParameters : MonoBehaviour
         jumpForce.text = player.jumpForce.ToString();
         acceleration.text = player.acceleration.ToString();
         deceleration.text = player.deceleration.ToString();
+        dashDuration.text = player.dashDuration.ToString();
+        dashSpeed.text = player.dashSpeed.ToString();
     }
 
     public void ApplySettings()
@@ -51,6 +53,24 @@ public class PlayerParameters : MonoBehaviour
         try
         {
             player.deceleration = float.Parse(deceleration.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+
+        try
+        {
+            player.dashDuration = float.Parse(dashDuration.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+
+        try
+        {
+            player.dashSpeed = float.Parse(dashSpeed.text);
         }
         catch
         {
