@@ -8,16 +8,20 @@ public class Player : MonoBehaviour
     public float acceleration = 0.05f, deceleration = 0.05f;
     public float dashDuration = 0.5f, dashSpeed = 7.5f;
 
-    private float movement = 0f, dashTimer = 0f, dashDirection = 1f;
+    private Vector2 dashDirection;
+
+    private float movement = 0f, dashTimer = 0f;
     private bool onGround = true;
 
     private RaycastHit2D raycastHitLeft, raycastHitRight;
 
     private Rigidbody2D rb;
+    private float rbGravity = 0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rbGravity = rb.gravityScale;
     }
 
     private void Update()
@@ -51,9 +55,6 @@ public class Player : MonoBehaviour
                 if (Mathf.Abs(movement) <= deceleration && Mathf.Abs(movement) > 0f)
                     movement = 0f;
             }
-
-            if (Input.GetAxisRaw("Horizontal") != 0f)
-                dashDirection = Input.GetAxisRaw("Horizontal");
         }
         #endregion
 
@@ -77,13 +78,24 @@ public class Player : MonoBehaviour
         {
             if (dashTimer <= 0f && !onGround)
             {
-                dashTimer = dashDuration;
+                dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+                if (!dashDirection.Equals(Vector2.zero))
+                {
+                    dashTimer = dashDuration;
+                    rb.gravityScale = 0f;
+                    rb.velocity = Vector2.zero;
+                }
             }
         }
 
         if (dashTimer > 0f)
         {
-            transform.Translate(Vector2.right * dashDirection * dashSpeed * Time.deltaTime);
+            transform.Translate(dashDirection * dashSpeed * Time.deltaTime);
+        }
+        else
+        {
+            rb.gravityScale = rbGravity;
         }
         #endregion
     }
