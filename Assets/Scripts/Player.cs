@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Dash"))
         {
-            if (dashTimer <= 0f)
+            if (dashTimer <= 0f && !onGround)
             {
                 dashTimer = dashDuration;
             }
