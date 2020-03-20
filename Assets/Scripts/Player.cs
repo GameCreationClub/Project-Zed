@@ -83,20 +83,14 @@ public class Player : MonoBehaviour
                 if (!dashDirection.Equals(Vector2.zero))
                 {
                     dashTimer = dashDuration;
-                    rb.gravityScale = 0f;
                     rb.velocity = Vector2.zero;
                 }
             }
         }
-
-        if (dashTimer > 0f)
-        {
-            transform.Translate(dashDirection * dashSpeed * Time.deltaTime);
-        }
-        else
-        {
-            rb.gravityScale = rbGravity;
-        }
         #endregion
+
+        rb.velocity = (dashTimer > 0f)
+        ? dashDirection * dashSpeed
+        : new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
     }
 }
