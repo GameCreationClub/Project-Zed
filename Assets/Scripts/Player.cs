@@ -78,7 +78,6 @@ public class Player : MonoBehaviour
                 {
                     rb.AddForce(Vector2.up * jumpForce);
                     airJumps--;
-                    print("jump");
                 }
                 else if (airJumps > 0)
                 {

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerParameters : MonoBehaviour
 {
-    public InputField moveSpeed, jumpForce, acceleration, deceleration, dashDuration, dashSpeed;
+    public InputField moveSpeed, jumpForce, airJumpAmount, acceleration, deceleration, dashDuration, dashSpeed;
 
     private Player player;
 
@@ -15,6 +15,7 @@ public class PlayerParameters : MonoBehaviour
 
         moveSpeed.text = player.moveSpeed.ToString();
         jumpForce.text = player.jumpForce.ToString();
+        airJumpAmount.text = player.maxAirJumps.ToString();
         acceleration.text = player.acceleration.ToString();
         deceleration.text = player.deceleration.ToString();
         dashDuration.text = player.dashDuration.ToString();
@@ -35,6 +36,15 @@ public class PlayerParameters : MonoBehaviour
         try
         {
             player.jumpForce = float.Parse(jumpForce.text);
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
+
+        try
+        {
+            player.maxAirJumps = int.Parse(airJumpAmount.text);
         }
         catch
         {
