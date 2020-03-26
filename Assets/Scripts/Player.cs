@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     private float movement = 0f, dashTimer = 0f;
     private bool onGround = true;
 
+    private bool justFinishedDash = false;
+
     private RaycastHit2D raycastHitLeft, raycastHitRight;
 
     private Rigidbody2D rb;
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
         raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.1f);
         onGround = (raycastHitRight.collider != null || raycastHitLeft.collider != null);
 
-        if(onGround)
+        if (onGround)
         {
             canDash = true;
             airJumps = maxAirJumps;
@@ -93,21 +95,31 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Dash
-        dashTimer -= Time.deltaTime;
-
         if (hasDashAbility)
         {
-            if (Input.GetButtonDown("Dash"))
-            {
-                if (dashTimer <= 0f && !onGround && canDash)
-                {
-                    dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            dashTimer -= Time.deltaTime;
 
-                    if (!dashDirection.Equals(Vector2.zero))
+            if (dashTimer < 0f)
+            {
+                if (justFinishedDash)
+                {
+                    rb.velocity = Vector2.zero;
+                    justFinishedDash = false;
+                }
+
+                if (Input.GetButtonDown("Dash"))
+                {
+                    if (!onGround && canDash)
                     {
-                        dashTimer = dashDuration;
-                        rb.velocity = Vector2.zero;
-                        canDash = false;
+                        dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+                        if (!dashDirection.Equals(Vector2.zero))
+                        {
+                            dashTimer = dashDuration;
+                            rb.velocity = Vector2.zero;
+                            canDash = false;
+                            justFinishedDash = true;
+                        }
                     }
                 }
             }
