@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public float acceleration = 0.05f, deceleration = 0.05f;
     public float dashDuration = 0.5f, dashSpeed = 7.5f;
 
+    public bool canDash = true;
+
     public int maxAirJumps = 0;
 
     private int airJumps;
@@ -91,16 +93,19 @@ public class Player : MonoBehaviour
         #region Dash
         dashTimer -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Dash"))
+        if (canDash)
         {
-            if (dashTimer <= 0f && !onGround)
+            if (Input.GetButtonDown("Dash"))
             {
-                dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-                if (!dashDirection.Equals(Vector2.zero))
+                if (dashTimer <= 0f && !onGround)
                 {
-                    dashTimer = dashDuration;
-                    rb.velocity = Vector2.zero;
+                    dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+                    if (!dashDirection.Equals(Vector2.zero))
+                    {
+                        dashTimer = dashDuration;
+                        rb.velocity = Vector2.zero;
+                    }
                 }
             }
         }

@@ -147,3 +147,7 @@ MonoBehaviour:
   jumpForce: 585
   acceleration: 0.2
   deceleration: 0.125
+  dashDuration: 0.15
+  dashSpeed: 15
+  canDash: 1
+  maxAirJumps: 0
