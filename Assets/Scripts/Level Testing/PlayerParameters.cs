@@ -21,7 +21,7 @@ public class PlayerParameters : MonoBehaviour
         deceleration.text = player.deceleration.ToString();
         dashDuration.text = player.dashDuration.ToString();
         dashSpeed.text = player.dashSpeed.ToString();
-        canDash.isOn = player.canDash;
+        canDash.isOn = player.hasDashAbility;
     }
 
     public void ApplySettings()
@@ -89,6 +89,6 @@ public class PlayerParameters : MonoBehaviour
             Debug.LogError("Incorrect format.");
         }
 
-        player.canDash = canDash.isOn;
+        player.hasDashAbility = canDash.isOn;
     }
 }

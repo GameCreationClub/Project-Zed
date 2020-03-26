@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
     public float acceleration = 0.05f, deceleration = 0.05f;
     public float dashDuration = 0.5f, dashSpeed = 7.5f;
 
-    public bool canDash = true;
+    public bool hasDashAbility = true;
 
     public int maxAirJumps = 0;
 
+    private bool canDash;
     private int airJumps;
 
     private Vector2 dashDirection;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
 
         if(onGround)
         {
+            canDash = true;
             airJumps = maxAirJumps;
         }
 
@@ -93,11 +95,11 @@ public class Player : MonoBehaviour
         #region Dash
         dashTimer -= Time.deltaTime;
 
-        if (canDash)
+        if (hasDashAbility)
         {
             if (Input.GetButtonDown("Dash"))
             {
-                if (dashTimer <= 0f && !onGround)
+                if (dashTimer <= 0f && !onGround && canDash)
                 {
                     dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
@@ -105,6 +107,7 @@ public class Player : MonoBehaviour
                     {
                         dashTimer = dashDuration;
                         rb.velocity = Vector2.zero;
+                        canDash = false;
                     }
                 }
             }
