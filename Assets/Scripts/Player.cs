@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     public float acceleration = 0.05f, deceleration = 0.05f;
     public float dashDuration = 0.5f, dashSpeed = 7.5f;
 
+    public int maxAirJumps = 0;
+
+    private int airJumps;
+
     private Vector2 dashDirection;
 
     private float movement = 0f, dashTimer = 0f;
@@ -22,6 +26,8 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rbGravity = rb.gravityScale;
+
+        airJumps = maxAirJumps;
     }
 
     private void Update()
@@ -30,6 +36,11 @@ public class Player : MonoBehaviour
         raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.1f);
         raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.1f);
         onGround = (raycastHitRight.collider != null || raycastHitLeft.collider != null);
+
+        if(onGround)
+        {
+            airJumps = maxAirJumps;
+        }
 
         #endregion
 
@@ -66,6 +77,13 @@ public class Player : MonoBehaviour
                 if (onGround)
                 {
                     rb.AddForce(Vector2.up * jumpForce);
+                    airJumps--;
+                    print("jump");
+                }
+                else if (airJumps > 0)
+                {
+                    rb.AddForce(Vector2.up * jumpForce);
+                    airJumps--;
                 }
             }
         }
