@@ -111,7 +111,8 @@ public class Player : MonoBehaviour
                 {
                     if (!onGround && canDash)
                     {
-                        dashDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                        float directionalDashSpeed = 1f / Mathf.Sqrt(Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")));
+                        dashDirection = new Vector2(directionalDashSpeed * Input.GetAxisRaw("Horizontal"), directionalDashSpeed * Input.GetAxisRaw("Vertical"));
 
                         if (!dashDirection.Equals(Vector2.zero))
                         {
