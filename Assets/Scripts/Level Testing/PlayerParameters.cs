@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerParameters : MonoBehaviour
 {
     public InputField moveSpeed, jumpForce, airJumpAmount, acceleration, deceleration, dashDuration, dashSpeed;
+    public Toggle canDash;
 
     private Player player;
 
@@ -20,6 +21,7 @@ public class PlayerParameters : MonoBehaviour
         deceleration.text = player.deceleration.ToString();
         dashDuration.text = player.dashDuration.ToString();
         dashSpeed.text = player.dashSpeed.ToString();
+        canDash.isOn = player.canDash;
     }
 
     public void ApplySettings()
@@ -86,5 +88,7 @@ public class PlayerParameters : MonoBehaviour
         {
             Debug.LogError("Incorrect format.");
         }
+
+        player.canDash = canDash.isOn;
     }
 }
