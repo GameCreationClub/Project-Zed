@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f, jumpForce = 390f;
     public float acceleration = 0.05f, deceleration = 0.05f;
@@ -25,12 +25,10 @@ public class Player : MonoBehaviour
     private RaycastHit2D raycastHitLeft, raycastHitRight;
 
     private Rigidbody2D rb;
-    private float rbGravity = 0f;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rbGravity = rb.gravityScale;
 
         airJumps = maxAirJumps;
     }

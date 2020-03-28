@@ -8,11 +8,11 @@ public class PlayerParameters : MonoBehaviour
     public InputField moveSpeed, jumpForce, airJumpAmount, acceleration, deceleration, dashDuration, dashSpeed;
     public Toggle canDash;
 
-    private Player player;
+    private PlayerMovement player;
 
     public void GetPlayer()
     {
-        player = FindObjectOfType<Player>();
+        player = FindObjectOfType<PlayerMovement>();
 
         moveSpeed.text = player.moveSpeed.ToString();
         jumpForce.text = player.jumpForce.ToString();

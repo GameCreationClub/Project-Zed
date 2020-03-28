@@ -3407,6 +3407,9 @@ MonoBehaviour:
   - color: {r: 0, g: 1, b: 0, a: 1}
     prefab: {fileID: 8528331742387239874, guid: 2fe58b0fe08042b47ab50588ab1893af,
       type: 3}
+  - color: {r: 0, g: 0.7058824, b: 1, a: 1}
+    prefab: {fileID: 4410071911624023414, guid: 1fcb264ab5772bf4f8b9f89be02c26d0,
+      type: 3}
   tileSize: {x: 1, y: 1}
 --- !u!114 &1681640885
 MonoBehaviour:
