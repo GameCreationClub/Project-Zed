@@ -40,8 +40,6 @@ public class PlayerMovement : MonoBehaviour
         raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.05f);
         onGround = (raycastHitRight.collider != null || raycastHitLeft.collider != null);
 
-        print(airJumps);
-
         #endregion
 
         #region Movement

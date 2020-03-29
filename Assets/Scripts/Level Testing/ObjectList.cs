@@ -22,7 +22,8 @@ public class ObjectList : MonoBehaviour
             Instantiate(colorMapPrefab, parent)
             .GetComponent<ColorMapPrefab>()
             .SetColorMap(colorMap.color,
-            colorMap.prefab.GetComponent<SpriteRenderer>().sprite);
+            colorMap.prefab.GetComponent<SpriteRenderer>().sprite,
+            colorMap.prefab.name);
         }
 
         scroll.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 130f * colorMaps.Length);
