@@ -36,15 +36,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         #region Ground Detection
-        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.1f);
-        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.1f);
+        raycastHitRight = Physics2D.Raycast((Vector2)transform.position + new Vector2(0.5f, -0.51f), Vector2.down, 0.05f);
+        raycastHitLeft = Physics2D.Raycast((Vector2)transform.position - Vector2.one * 0.51f, Vector2.down, 0.05f);
         onGround = (raycastHitRight.collider != null || raycastHitLeft.collider != null);
 
-        if (onGround)
-        {
-            canDash = true;
-            airJumps = maxAirJumps;
-        }
+        print(airJumps);
 
         #endregion
 
@@ -83,8 +79,9 @@ public class PlayerMovement : MonoBehaviour
                     rb.AddForce(Vector2.up * jumpForce);
                     airJumps--;
                 }
-                else if (airJumps > 0)
+                else if (airJumps >= 0)
                 {
+                    rb.velocity = Vector2.zero;
                     rb.AddForce(Vector2.up * jumpForce);
                     airJumps--;
                 }
@@ -128,5 +125,14 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = (dashTimer > 0f)
         ? dashDirection * dashSpeed
         : new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (onGround)
+        {
+            canDash = true;
+            airJumps = maxAirJumps;
+        }
     }
 }
