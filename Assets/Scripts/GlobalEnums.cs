@@ -8,4 +8,6 @@ public class GlobalEnums : MonoBehaviour
     {
         Dash, DoubleJump, GravityFlip
     };
+
+    public static readonly Vector2 Vector2Nan = new Vector2(float.NaN, float.NaN);
 }

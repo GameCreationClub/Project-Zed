@@ -107,7 +107,9 @@ public class PlayerMovement : MonoBehaviour
                         float directionalDashSpeed = 1f / Mathf.Sqrt(Mathf.Abs(Input.GetAxisRaw("Horizontal")) + Mathf.Abs(Input.GetAxisRaw("Vertical")));
                         dashDirection = new Vector2(directionalDashSpeed * Input.GetAxisRaw("Horizontal"), directionalDashSpeed * Input.GetAxisRaw("Vertical"));
 
-                        if (!dashDirection.Equals(Vector2.zero))
+                        bool validDash = !(float.IsInfinity(directionalDashSpeed) || float.IsNaN(directionalDashSpeed));
+
+                        if (validDash)
                         {
                             dashTimer = dashDuration;
                             rb.velocity = Vector2.zero;
