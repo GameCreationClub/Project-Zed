@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerParameters : MonoBehaviour
 {
-    public InputField moveSpeed, jumpForce, airJumpAmount, acceleration, deceleration, dashDuration, dashSpeed;
+    public InputField moveSpeed, jumpForce, airJumpAmount, acceleration, deceleration, dashDuration, dashSpeed, vision;
     public Toggle canDash;
 
     private PlayerMovement player;
@@ -22,6 +22,7 @@ public class PlayerParameters : MonoBehaviour
         dashDuration.text = player.dashDuration.ToString();
         dashSpeed.text = player.dashSpeed.ToString();
         canDash.isOn = player.hasDashAbility;
+        vision.text = "3.7";
     }
 
     public void ApplySettings()
@@ -90,5 +91,14 @@ public class PlayerParameters : MonoBehaviour
         }
 
         player.hasDashAbility = canDash.isOn;
+
+        try
+        {
+            player.SetVision(float.Parse(vision.text));
+        }
+        catch
+        {
+            Debug.LogError("Incorrect format.");
+        }
     }
 }

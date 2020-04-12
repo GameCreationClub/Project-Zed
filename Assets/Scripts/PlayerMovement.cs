@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
 
     public int maxAirJumps = 0;
 
+    public Transform visionMask;
+
     private bool canDash;
     private int airJumps;
 
@@ -31,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         airJumps = maxAirJumps;
+
+        visionMask = transform.GetChild(0);
     }
 
     private void Update()
@@ -134,5 +138,10 @@ public class PlayerMovement : MonoBehaviour
             canDash = true;
             airJumps = maxAirJumps;
         }
+    }
+
+    public void SetVision(float vision)
+    {
+        visionMask.localScale = Vector3.one * vision;
     }
 }
