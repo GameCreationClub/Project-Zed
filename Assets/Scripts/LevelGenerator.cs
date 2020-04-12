@@ -25,7 +25,10 @@ public class LevelGenerator : MonoBehaviour
         }
 
         transform.position -= new Vector3(map.width / 2f * tileSize.x, map.height / 2f * tileSize.y, 0f);
-        Camera.main.orthographicSize = (7f * map.height + 4f) / 12f;
+
+        Camera mainCam = Camera.main;
+        mainCam.orthographicSize = (7f * map.height + 4f) / 12f;
+        mainCam.transform.Find("Cover").localScale = new Vector2(20f, 12f) * mainCam.orthographicSize / 5f;
     }
 
     private void GenerateTile(int x, int y)
