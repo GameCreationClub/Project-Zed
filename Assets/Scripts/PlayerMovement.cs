@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
-        if (dashTimer <= 0f)
+        if (dashTimer <= 0f && onGround)
         {
             movement += Input.GetAxisRaw("Horizontal") * acceleration;
 
