@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit2D raycastHitLeft, raycastHitRight;
 
     private Rigidbody2D rb;
+    private float retainXVelocity;
 
     private void Start()
     {
@@ -47,26 +48,36 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
-        if (dashTimer <= 0f && onGround)
+        if (onGround)
         {
-            movement += Input.GetAxisRaw("Horizontal") * acceleration;
-
-            if (movement > 1f)
-                movement = 1f;
-            else if (movement < -1f)
-                movement = -1f;
-
-            transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
-
-            if (Input.GetAxisRaw("Horizontal") == 0f)
+            if (dashTimer <= 0f)
             {
-                if (movement > deceleration / 2f)
-                    movement -= deceleration;
-                else if (movement < -deceleration / 2f)
-                    movement += deceleration;
+                movement += Input.GetAxisRaw("Horizontal") * acceleration;
 
-                if (Mathf.Abs(movement) <= deceleration && Mathf.Abs(movement) > 0f)
-                    movement = 0f;
+                if (movement > 1f)
+                    movement = 1f;
+                else if (movement < -1f)
+                    movement = -1f;
+
+                transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
+
+                if (Input.GetAxisRaw("Horizontal") == 0f)
+                {
+                    if (movement > deceleration / 2f)
+                        movement -= deceleration;
+                    else if (movement < -deceleration / 2f)
+                        movement += deceleration;
+
+                    if (Mathf.Abs(movement) <= deceleration && Mathf.Abs(movement) > 0f)
+                        movement = 0f;
+                }
+            }
+        }
+        else
+        {
+            if (dashTimer <= 0f)
+            {
+                transform.Translate(Vector2.right * retainXVelocity * moveSpeed * Time.deltaTime);
             }
         }
         #endregion
@@ -78,7 +89,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (onGround)
                 {
+                    retainXVelocity = movement;
+
+                    onGround = false;
                     rb.AddForce(Vector2.up * jumpForce);
+                    rb.velocity = new Vector2(retainXVelocity, rb.velocity.y);
                     airJumps--;
                 }
                 else if (airJumps >= 0)
@@ -115,6 +130,8 @@ public class PlayerMovement : MonoBehaviour
 
                         if (validDash)
                         {
+                            retainXVelocity = Input.GetAxisRaw("Horizontal");
+
                             dashTimer = dashDuration;
                             rb.velocity = Vector2.zero;
                             canDash = false;
