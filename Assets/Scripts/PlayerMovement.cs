@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 dashDirection;
 
-    private float movement = 0f, dashTimer = 0f;
+    private float movement = 0f, dashTimer = 0f, movementMultiplier = 180f;
     private bool onGround = true;
 
     private bool justFinishedDash = false;
@@ -59,8 +59,6 @@ public class PlayerMovement : MonoBehaviour
                 else if (movement < -1f)
                     movement = -1f;
 
-                transform.Translate(Vector2.right * movement * moveSpeed * Time.deltaTime);
-
                 if (Input.GetAxisRaw("Horizontal") == 0f)
                 {
                     if (movement > deceleration / 2f)
@@ -77,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (dashTimer <= 0f)
             {
-                transform.Translate(Vector2.right * retainXVelocity * moveSpeed * Time.deltaTime);
+                movement = retainXVelocity;
             }
         }
         #endregion
@@ -145,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb.velocity = (dashTimer > 0f)
         ? dashDirection * dashSpeed
-        : new Vector2(movement * moveSpeed * Time.deltaTime, rb.velocity.y);
+        : new Vector2(movement * moveSpeed * movementMultiplier * Time.deltaTime, rb.velocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
