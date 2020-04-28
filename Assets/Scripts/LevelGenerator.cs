@@ -24,10 +24,12 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        transform.position -= new Vector3(map.width / 2f * tileSize.x, map.height / 2f * tileSize.y, 0f);
+        transform.position -= new Vector3(Mathf.Floor(map.width / 2f * tileSize.x), Mathf.Floor(map.height / 2f * tileSize.y), 0f);
 
+
+        int largestDimension = Mathf.Max(map.width, map.height);
         Camera mainCam = Camera.main;
-        mainCam.orthographicSize = (7f * map.height + 4f) / 12f;
+        mainCam.orthographicSize = /*(7f * largestDimension + 4f) / 12f*/ largestDimension / 2f;
         mainCam.transform.Find("Cover").localScale = new Vector2(20f, 12f) * mainCam.orthographicSize / 5f;
     }
 
