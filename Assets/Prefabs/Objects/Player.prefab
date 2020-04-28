@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 8528331742387239878}
   - component: {fileID: 1703038379}
   - component: {fileID: -679583955611765570}
+  - component: {fileID: -7008938022436703997}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -180,7 +181,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.99, y: 0.99}
   m_Direction: 0
 --- !u!50 &8528331742387239878
 Rigidbody2D:
@@ -237,3 +238,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountOfCrystals: 0
+--- !u!114 &-7008938022436703997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8528331742387239874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 812fa97c2cc5d80408f9eeb22e35e66a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

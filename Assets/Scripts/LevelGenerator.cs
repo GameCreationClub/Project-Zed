@@ -9,8 +9,6 @@ public class LevelGenerator : MonoBehaviour
 
     public Vector2 tileSize;
 
-    private bool playerSpawned = false;
-
     public void GenerateLevel()
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -47,19 +45,7 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
-        if (playerSpawned)
-        {
-            if (prefab.CompareTag("Player"))
-            {
-                GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(x * tileSize.x, y * tileSize.y);
-                return;
-            }
-        }
-
         Instantiate(prefab, new Vector2(x * tileSize.x, y * tileSize.y), Quaternion.identity).transform.parent = transform;
-
-        if (prefab.CompareTag("Player"))
-            playerSpawned = true;
     }
 
     private GameObject GetPrefabFromColor(Color color)

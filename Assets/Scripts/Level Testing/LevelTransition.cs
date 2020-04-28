@@ -16,4 +16,14 @@ public class LevelTransition : MonoBehaviour
         levelGenerator.map = levels[0];
         levelGenerator.GenerateLevel();
     }
+
+    public void NextLevel()
+    {
+        if (currentLevel < levels.Length - 1)
+        {
+            currentLevel++;
+            levelGenerator.map = levels[currentLevel];
+            levelGenerator.GenerateLevel();
+        }
+    }
 }

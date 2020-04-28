@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Crystal
   - Powerup
+  - Border
   layers:
   - Default
   - TransparentFX
