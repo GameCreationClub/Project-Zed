@@ -29,7 +29,7 @@ public class LevelGenerator : MonoBehaviour
 
         int largestDimension = Mathf.Max(map.width, map.height);
         Camera mainCam = Camera.main;
-        mainCam.orthographicSize = /*(7f * largestDimension + 4f) / 12f*/ largestDimension / 2f;
+        mainCam.orthographicSize = largestDimension / 2f;
         mainCam.transform.Find("Cover").localScale = new Vector2(20f, 12f) * mainCam.orthographicSize / 5f;
     }
 
