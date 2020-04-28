@@ -12,7 +12,7 @@ public class ObjectList : MonoBehaviour
 
     private void Start()
     {
-        GenerateObjectList(FindObjectOfType<LevelGenerator>().colorMaps);
+        GenerateObjectList(FindObjectOfType<LevelGenerator>().colorMaps.colorMaps);
     }
 
     public void GenerateObjectList(ColorMap[] colorMaps)

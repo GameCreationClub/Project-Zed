@@ -5,9 +5,11 @@ using UnityEngine;
 public class LevelGenerator : MonoBehaviour
 {
     public Texture2D map;
-    public ColorMap[] colorMaps;
+    public ColorMapCollection colorMaps;
 
     public Vector2 tileSize;
+
+    private bool playerSpawned = false;
 
     public void GenerateLevel()
     {
@@ -40,14 +42,29 @@ public class LevelGenerator : MonoBehaviour
         GameObject prefab = GetPrefabFromColor(pixelColor);
 
         if (prefab == null)
+        {
             Debug.LogWarning($"Color {pixelColor} at {x}, {y} does not map to any object");
-        else
-            Instantiate(prefab, new Vector2(x * tileSize.x, (y * tileSize.y)), Quaternion.identity).transform.parent = transform;
+            return;
+        }
+
+        if (playerSpawned)
+        {
+            if (prefab.CompareTag("Player"))
+            {
+                GameObject.FindGameObjectWithTag("Player").transform.position = new Vector2(x * tileSize.x, y * tileSize.y);
+                return;
+            }
+        }
+
+        Instantiate(prefab, new Vector2(x * tileSize.x, y * tileSize.y), Quaternion.identity).transform.parent = transform;
+
+        if (prefab.CompareTag("Player"))
+            playerSpawned = true;
     }
 
     private GameObject GetPrefabFromColor(Color color)
     {
-        foreach (ColorMap colorMap in colorMaps)
+        foreach (ColorMap colorMap in colorMaps.colorMaps)
         {
             if (colorMap.color.Equals(color))
                 return colorMap.prefab;
