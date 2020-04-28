@@ -48,34 +48,24 @@ public class PlayerMovement : MonoBehaviour
         #endregion
 
         #region Movement
-        if (onGround)
+        if (dashTimer <= 0f)
         {
-            if (dashTimer <= 0f)
+            movement += Input.GetAxisRaw("Horizontal") * acceleration;
+
+            if (movement > 1f)
+                movement = 1f;
+            else if (movement < -1f)
+                movement = -1f;
+
+            if (Input.GetAxisRaw("Horizontal") == 0f)
             {
-                movement += Input.GetAxisRaw("Horizontal") * acceleration;
+                if (movement > deceleration / 2f)
+                    movement -= deceleration;
+                else if (movement < -deceleration / 2f)
+                    movement += deceleration;
 
-                if (movement > 1f)
-                    movement = 1f;
-                else if (movement < -1f)
-                    movement = -1f;
-
-                if (Input.GetAxisRaw("Horizontal") == 0f)
-                {
-                    if (movement > deceleration / 2f)
-                        movement -= deceleration;
-                    else if (movement < -deceleration / 2f)
-                        movement += deceleration;
-
-                    if (Mathf.Abs(movement) <= deceleration && Mathf.Abs(movement) > 0f)
-                        movement = 0f;
-                }
-            }
-        }
-        else
-        {
-            if (dashTimer <= 0f)
-            {
-                movement = retainXVelocity;
+                if (Mathf.Abs(movement) <= deceleration && Mathf.Abs(movement) > 0f)
+                    movement = 0f;
             }
         }
         #endregion
